@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MinimarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bills">
+          <Key>
+            <PropertyRef Name="bill_num" />
+          </Key>
+          <Property Name="bill_num" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="name" Type="ntext" Nullable="false" />
+          <Property Name="address" Type="ntext" Nullable="false" />
+          <Property Name="position" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="password" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="salary" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="items">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Item_name" Type="text" Nullable="false" />
+          <Property Name="Price" Type="real" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Product_ID" Type="int" Nullable="false" />
+          <Property Name="Bill_num" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ports">
+          <Key>
+            <PropertyRef Name="Portselling_ID" />
+          </Key>
+          <Property Name="Portselling_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Portselling_name" Type="text" Nullable="false" />
+          <Property Name="Product_category" Type="text" Nullable="false" />
+          <Property Name="address" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_name" Type="text" Nullable="false" />
+          <Property Name="Product_quantity" Type="int" Nullable="false" />
+          <Property Name="Product_price" Type="real" Nullable="false" />
+          <Property Name="Dateofproduction" Type="date" Nullable="false" />
+          <Property Name="Dateofexpiration" Type="date" Nullable="false" />
+          <Property Name="Portselling_ID" Type="int" Nullable="false" />
+          <Property Name="item_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_items_bills">
+          <End Role="bills" Type="Self.bills" Multiplicity="1" />
+          <End Role="items" Type="Self.items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bills">
+              <PropertyRef Name="bill_num" />
+            </Principal>
+            <Dependent Role="items">
+              <PropertyRef Name="Bill_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_items">
+          <End Role="items" Type="Self.items" Multiplicity="1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="items">
+              <PropertyRef Name="item_id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_ports">
+          <End Role="ports" Type="Self.ports" Multiplicity="1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ports">
+              <PropertyRef Name="Portselling_ID" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="Portselling_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MinimarketModelStoreContainer">
+          <EntitySet Name="bills" EntityType="Self.bills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="items" EntityType="Self.items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ports" EntityType="Self.ports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_items_bills" Association="Self.FK_items_bills">
+            <End Role="bills" EntitySet="bills" />
+            <End Role="items" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_items" Association="Self.FK_products_items">
+            <End Role="items" EntitySet="items" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_ports" Association="Self.FK_products_ports">
+            <End Role="ports" EntitySet="ports" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MinimarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bill">
+          <Key>
+            <PropertyRef Name="bill_num" />
+          </Key>
+          <Property Name="bill_num" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="position" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="salary" Type="Single" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Item_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Single" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Product_ID" Type="Int32" Nullable="false" />
+          <Property Name="Bill_num" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="port">
+          <Key>
+            <PropertyRef Name="Portselling_ID" />
+          </Key>
+          <Property Name="Portselling_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Portselling_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_category" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_quantity" Type="Int32" Nullable="false" />
+          <Property Name="Product_price" Type="Single" Nullable="false" />
+          <Property Name="Dateofproduction" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Dateofexpiration" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Portselling_ID" Type="Int32" Nullable="false" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityContainer Name="MinimarketEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bills" EntityType="Self.bill" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="items" EntityType="Self.item" />
+          <EntitySet Name="ports" EntityType="Self.port" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MinimarketModelStoreContainer" CdmEntityContainer="MinimarketEntities1">
+          <EntitySetMapping Name="bills">
+            <EntityTypeMapping TypeName="MinimarketModel.bill">
+              <MappingFragment StoreEntitySet="bills">
+                <ScalarProperty Name="bill_num" ColumnName="bill_num" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="MinimarketModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ID_name" ColumnName="ID_name" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="items">
+            <EntityTypeMapping TypeName="MinimarketModel.item">
+              <MappingFragment StoreEntitySet="items">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="Item_name" ColumnName="Item_name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Bill_num" ColumnName="Bill_num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ports">
+            <EntityTypeMapping TypeName="MinimarketModel.port">
+              <MappingFragment StoreEntitySet="ports">
+                <ScalarProperty Name="Portselling_ID" ColumnName="Portselling_ID" />
+                <ScalarProperty Name="Portselling_name" ColumnName="Portselling_name" />
+                <ScalarProperty Name="Product_category" ColumnName="Product_category" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="MinimarketModel.product">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Product_name" ColumnName="Product_name" />
+                <ScalarProperty Name="Product_quantity" ColumnName="Product_quantity" />
+                <ScalarProperty Name="Product_price" ColumnName="Product_price" />
+                <ScalarProperty Name="Dateofproduction" ColumnName="Dateofproduction" />
+                <ScalarProperty Name="Dateofexpiration" ColumnName="Dateofexpiration" />
+                <ScalarProperty Name="Portselling_ID" ColumnName="Portselling_ID" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MinimarketModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

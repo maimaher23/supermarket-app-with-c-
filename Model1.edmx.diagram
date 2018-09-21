@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ce5333fd271d4af6aa487dc7eee11580" Name="Diagram1">
+        <EntityTypeShape EntityType="MinimarketModel.billOfsale" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MinimarketModel.Buybill" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MinimarketModel.employee" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MinimarketModel.item" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MinimarketModel.portselling" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MinimarketModel.product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MinimarketModel.sysdiagram" Width="1.5" PointX="5.75" PointY="3.75" />
+        <AssociationConnector Association="MinimarketModel.FK_item_billOfsale" />
+        <AssociationConnector Association="MinimarketModel.FK_product_Buybill" />
+        <AssociationConnector Association="MinimarketModel.FK_product_portselling" />
+        <EntityTypeShape EntityType="MinimarketModel.Produc" Width="1.5" PointX="7.375" PointY="6.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
